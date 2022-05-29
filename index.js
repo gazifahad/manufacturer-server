@@ -138,7 +138,7 @@ async function run() {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };
         const result = await warehouseCollection.deleteOne(filter);  
-        res.send({message: "item deleted"})
+        res.send({message: "the item deleted"})
       });
 
 
@@ -176,7 +176,7 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const result = await productCollection.deleteOne(filter);  
-      res.send({message: "item deleted"})
+      res.send({message: "requested item deleted"})
     });
 
 
