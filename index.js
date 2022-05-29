@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // var uri = `mongodb://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0-shard-00-00.ahkxb.mongodb.net:27017,cluster0-shard-00-01.ahkxb.mongodb.net:27017,cluster0-shard-00-02.ahkxb.mongodb.net:27017/?ssl=true&replicaSet=atlas-bxflci-shard-0&authSource=admin&retryWrites=true&w=majority`;
-var uri =`mongodb:${process.env.USER_NAME_Db}:${process.env.USER_PASS_Db}@cluster0.mmh3b.mongodb.net/?retryWrites=true&w=majority`;
+var uri ='mongodb+srv://fahad3:bg7dt2hqdxrOdaXp@cluster0.mmh3b.mongodb.net/?retryWrites=true&w=majority'
 // user:fahad3
 // pass : bg7dt2hqdxrOdaXp
 
