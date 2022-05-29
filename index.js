@@ -209,7 +209,7 @@ async function run() {
       const query = {};
       const notShiped = {isShiped : false};
       const result = await orderCollection.find(notShiped).toArray();
-      res.send({ message: "all not shiped orders loaded", result});
+      res.send({ message: "all unshipped orders loaded", result});
     });
 
     // create one order
@@ -264,7 +264,7 @@ async function run() {
 app.post("/review", async (req, res) => {
   const review = req.body;
   const result = await reviewCollection.insertOne(review);
-  res.send({ message: "review added", result});
+  res.send({ message: "your review added", result});
 });
 
 
@@ -297,9 +297,9 @@ run().catch(console.dir);
 
 // backend initialize
 app.get("/", (req, res) => {
-  res.send("welcome to Solid Tools Corp");
+  res.send("welcome to household Tools Corp");
 });
 
 app.listen(port, () => {
-  console.log("Solid Tools Corp is running on Port", port);
+  console.log("household Tools Corp is running on Port", port);
 });
