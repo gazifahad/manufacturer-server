@@ -12,9 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 
-var uri ='mongodb+srv://fahad3:bg7dt2hqdxrOdaXp@cluster0.mmh3b.mongodb.net/?retryWrites=true&w=majority'
+var uri ='mongodb+srv://gazifahad34:1yWmPaSySuNIOVUa@cluster0.6sl9quz.mongodb.net/?retryWrites=true&w=majority'
 // user:fahad3
-// pass : bg7dt2hqdxrOdaXp
+// pass : 1yWmPaSySuNIOVUa
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -52,7 +52,7 @@ async function run() {
 // ******************************
 
     // get all users
-    // https://immense-oasis-80254.herokuapp.com/users
+    // http://localhost:5000/users
     app.get("/users", async (req, res) => {
         const query = {};
         const result = await userCollection.find(query).toArray();
@@ -60,7 +60,7 @@ async function run() {
     });
 
     // create one user
-    // https://immense-oasis-80254.herokuapp.com/user/email
+    // http://localhost:5000/user/email
     app.put("/user/:email", async (req, res) => {
       const email = req.params.email;
       const filter = {email : email};
@@ -76,7 +76,7 @@ async function run() {
 
 
     // make an user Admin
-    // https://immense-oasis-80254.herokuapp.com/admin/email
+    // http://localhost:5000/admin/email
     app.put("/admin/:email", async (req, res) => {      
       const email = req.params.email;
       const filter = {email : email};
@@ -90,7 +90,7 @@ async function run() {
 
 
     // check Admin
-    // https://immense-oasis-80254.herokuapp.com/admin/email
+    // http://localhost:5000/admin/email
     app.get("/admin/:email", async (req, res) => {      
       const email = req.params.email;      
       const user = await userCollection.findOne({email : email}); 
@@ -101,19 +101,19 @@ async function run() {
     
 
     // find one item by id
-    // https://immense-oasis-80254.herokuapp.com/item/6274a3425a04790168facc8c
+    // http://localhost:5000/item/6274a3425a04790168facc8c
     app.get("/item/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
-      const result = await warehouseCollection.findOne(filter);
+      const result = await productCollection.findOne(filter);
       res.send(result);
     });
     // find one item by email
-    // https://immense-oasis-80254.herokuapp.com/addedby/abdullah71faisal@gamil.com
+    // http://localhost:5000/addedby/abdullah71faisal@gamil.com
     app.get("/addedby/:email", async (req, res) => {
       const email = req.params.email;
       const filter = { addedby:email};
-      const result = await warehouseCollection.find(filter).toArray();
+      const result = await productCollection.find(filter).toArray();
       res.send(result);
     });
 
@@ -121,23 +121,23 @@ async function run() {
     
 
     //update item
-    // https://immense-oasis-80254.herokuapp.com/item/6274a3425a04790168facc8c
+    // http://localhost:5000/item/6274a3425a04790168facc8c
     app.put("/item/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
       const updateItem = {        
         $set: req.body,
       };
-      const result = await warehouseCollection.updateOne(filter, updateItem);
+      const result = await productCollection.updateOne(filter, updateItem);
       res.send({success: true, result})
     });
 
     // delete item
-    // https://immense-oasis-80254.herokuapp.com/item/6274a3425a04790168facc8c
+    // http://localhost:5000/item/6274a3425a04790168facc8c
     app.delete("/item/:id", async (req, res) => {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };
-        const result = await warehouseCollection.deleteOne(filter);  
+        const result = await productCollection.deleteOne(filter);  
         res.send({message: "the item deleted"})
       });
 
@@ -147,14 +147,14 @@ async function run() {
 // ******************************
 
 // get all products
-    // https://immense-oasis-80254.herokuapp.com/products
+    // http://localhost:5000/products
     app.get("/products", async (req, res) => {
       const query = {};
       const result = await productCollection.find(query).toArray();
       res.send(result);
     });
     // get one product
-    // https://immense-oasis-80254.herokuapp.com/product/628f2ffc78debc74680fc1fd
+    // http://localhost:5000/product/628f2ffc78debc74680fc1fd
     app.get("/product/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
@@ -163,7 +163,7 @@ async function run() {
     });
 
     // create one product
-    // https://immense-oasis-80254.herokuapp.com/product
+    // http://localhost:5000/product
     app.post("/product", async (req, res) => {
       const item = req.body;
       const result = await productCollection.insertOne(item);
@@ -171,7 +171,7 @@ async function run() {
     });
 
      //delete one product
-      // https://immense-oasis-80254.herokuapp.com/product/id
+      // http://localhost:5000/product/id
      app.delete("/product/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
@@ -187,14 +187,14 @@ async function run() {
 // ******************************
 
 // get all orders
-    // https://immense-oasis-80254.herokuapp.com/orders
+    // http://localhost:5000/orders
     app.get("/orders", async (req, res) => {
       const query = {};
       const result = await orderCollection.find(query).toArray();
       res.send(result);
     });
     // get my orders
-    // https://immense-oasis-80254.herokuapp.com/orders/abdus@salam.com
+    // http://localhost:5000/orders/abdus@salam.com
     app.get("/orders/:email", async (req, res) => {
       const email = req.params.email;
       const query = {orderedBy: email};
@@ -204,7 +204,7 @@ async function run() {
 
     
     // get not shiped orders
-    // https://immense-oasis-80254.herokuapp.com/order
+    // http://localhost:5000/order
     app.post("/notshipedorders", async (req, res) => {
       const query = {};
       const notShiped = {isShiped : false};
@@ -213,7 +213,7 @@ async function run() {
     });
 
     // create one order
-    // https://immense-oasis-80254.herokuapp.com/order
+    // http://localhost:5000/order
     app.post("/order", async (req, res) => {
       const item = req.body;
       const result = await orderCollection.insertOne(item);
@@ -221,7 +221,7 @@ async function run() {
     });
 
     // pay one order
-    // https://immense-oasis-80254.herokuapp.com/order/id
+    // http://localhost:5000/order/id
     app.get("/order/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id) };
@@ -230,7 +230,7 @@ async function run() {
     });
 
  // payment confirm order
-    // https://immense-oasis-80254.herokuapp.com/admin/email
+    // http://localhost:5000/admin/email
     app.put("/admin/:email", async (req, res) => {      
       const email = req.params.email;
       const filter = {email : email};
@@ -252,7 +252,7 @@ async function run() {
 //     reviews 
 // ******************************
 
- // https://immense-oasis-80254.herokuapp.com/reviews
+ // http://localhost:5000/reviews
  app.get("/reviews", async (req, res) => {
   const query = {};
   const result = await reviewCollection.find(query).toArray();
@@ -260,7 +260,7 @@ async function run() {
 });
 
 // create one review
-// https://immense-oasis-80254.herokuapp.com/review
+// http://localhost:5000/review
 app.post("/review", async (req, res) => {
   const review = req.body;
   const result = await reviewCollection.insertOne(review);
